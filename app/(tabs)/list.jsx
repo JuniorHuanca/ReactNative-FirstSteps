@@ -7,9 +7,14 @@ import {
   SectionList,
   StyleSheet,
   StatusBar,
+  Modal,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import ScreenHeaderBtn from "@/components/ScreenHeaderBtn";
+import { useState } from "react";
 const List = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const DATA = [
     {
       title: "Frontend",
@@ -59,7 +64,11 @@ const List = () => {
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
+            <ScreenHeaderBtn
+              iconUrl={icons.menu}
+              dimension="60%"
+              handlePress={() => setModalVisible(!modalVisible)}
+            />
           ),
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
@@ -67,6 +76,63 @@ const List = () => {
           headerTitle: "",
         }}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <ScreenHeaderBtn
+              iconUrl={icons.close}
+              dimension="70%"
+              handlePress={() => setModalVisible(!modalVisible)}
+            />
+            <Text style={styles.welcomeMessage}>Menu</Text>
+            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+          </View>
+          <View>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Inicio</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Configuración</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Perfil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Notificaciones</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Ajustes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Ayuda</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Cerrar sesión</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Guardar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Cancelar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Aceptar</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Modal>
       <View style={styles.container}>
         <Text style={styles.welcomeMessage}>My Tecnologies</Text>
       </View>
@@ -90,6 +156,11 @@ const List = () => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+  },
+  containerMenu: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: COLORS.white,
   },
   welcomeMessage: {
     fontFamily: FONT.bold,
@@ -123,6 +194,17 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+  },
+  button: {
+    backgroundColor: COLORS.primary,
+    padding: 8,
+    marginHorizontal: 8,
+    marginVertical: 8,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 18,
   },
 });
 
