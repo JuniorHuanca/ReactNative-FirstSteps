@@ -10,52 +10,14 @@ import {
   Modal,
   Pressable,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import ScreenHeaderBtn from "@/components/ScreenHeaderBtn";
 import { useState } from "react";
+import { DataList } from "@/utils/data";
 const List = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const DATA = [
-    {
-      title: "Frontend",
-      data: [
-        "Next.js",
-        "JavaScript",
-        "TypeScript",
-        "Tailwind CSS",
-        "React",
-        "Redux",
-        "Bootstrap",
-        "Sass",
-        "HTML5",
-        "CSS3",
-      ],
-    },
-    {
-      title: "Backend",
-      data: [
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "PostgreSQL",
-        "Prisma",
-        "Sequealize",
-        "TypeScript",
-      ],
-    },
-    {
-      title: "Mobile",
-      data: ["React Native"],
-    },
-    {
-      title: "Learning",
-      data: ["React Native", "Prisma", "TypeScript"],
-    },
-    {
-      title: "Otros",
-      data: ["Git", "Bash"],
-    },
-  ];
+  const [modalLeft, setModalLeft] = useState(false);
+  const [modalRight, setModalRight] = useState(false);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -67,11 +29,15 @@ const List = () => {
             <ScreenHeaderBtn
               iconUrl={icons.menu}
               dimension="60%"
-              handlePress={() => setModalVisible(!modalVisible)}
+              handlePress={() => setModalLeft(!modalLeft)}
             />
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+            <ScreenHeaderBtn
+              iconUrl={images.profile}
+              dimension="100%"
+              handlePress={() => setModalRight(!modalRight)}
+            />
           ),
           headerTitle: "",
         }}
@@ -79,9 +45,9 @@ const List = () => {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalLeft}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setModalLeft(!modalLeft);
         }}
       >
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -94,10 +60,15 @@ const List = () => {
             <ScreenHeaderBtn
               iconUrl={icons.close}
               dimension="70%"
-              handlePress={() => setModalVisible(!modalVisible)}
+              handlePress={() => setModalLeft(!modalLeft)}
             />
             <Text style={styles.welcomeMessage}>Menu</Text>
-            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+
+            <ScreenHeaderBtn
+              iconUrl={images.profile}
+              dimension="100%"
+              handlePress={() => setModalRight(!modalRight)}
+            />
           </View>
           <View>
             <TouchableOpacity style={styles.button}>
@@ -133,12 +104,99 @@ const List = () => {
           </View>
         </SafeAreaView>
       </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalRight}
+        onRequestClose={() => {
+          setModalRight(!modalRight);
+        }}
+      >
+        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+          <View
+            style={{
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}
+          >
+            <ScreenHeaderBtn
+              iconUrl={icons.close}
+              dimension="70%"
+              handlePress={() => setModalRight(!modalRight)}
+            />
+            <Text style={styles.welcomeMessage}>Cuenta</Text>
+            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+          </View>
+          <View>
+            <TouchableOpacity style={styles.button}>
+              <Image
+                source={images.profile}
+                resizeMode="cover"
+                style={{ width: "100px", height: "100px", borderRadius: "50%" }}
+              />
+              <Text
+                style={{
+                  fontFamily: FONT.bold,
+                  fontSize: SIZES.xxLarge,
+                  color: COLORS.white,
+                }}
+              >
+                Perfil
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text
+                style={{
+                  fontFamily: FONT.bold,
+                  fontSize: SIZES.large,
+                  color: COLORS.white,
+                }}
+              >
+                Notificaciones
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text
+                style={{
+                  fontFamily: FONT.bold,
+                  fontSize: SIZES.large,
+                  color: COLORS.white,
+                }}
+              >
+                Ayuda
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text
+                style={{
+                  fontFamily: FONT.bold,
+                  fontSize: SIZES.large,
+                  color: COLORS.white,
+                }}
+              >
+                Configuración de la cuenta
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text
+                style={{
+                  fontFamily: FONT.bold,
+                  fontSize: SIZES.large,
+                  color: COLORS.white,
+                }}
+              >
+                Cerrar sesión
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </Modal>
       <View style={styles.container}>
         <Text style={styles.welcomeMessage}>My Tecnologies</Text>
       </View>
       <SectionList
         showsVerticalScrollIndicator={false}
-        sections={DATA}
+        sections={DataList}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
           <View style={styles.item}>
