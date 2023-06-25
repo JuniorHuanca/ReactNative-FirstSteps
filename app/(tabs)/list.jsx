@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, images, FONT, SIZES, SHADOWS } from "@/constants";
 import {
   View,
@@ -6,11 +6,10 @@ import {
   SafeAreaView,
   SectionList,
   StyleSheet,
-  StatusBar,
   Modal,
-  Pressable,
   TouchableOpacity,
   Image,
+  Linking,
 } from "react-native";
 import ScreenHeaderBtn from "@/components/ScreenHeaderBtn";
 import { useState } from "react";
@@ -18,6 +17,7 @@ import { DataList } from "@/utils/data";
 const List = () => {
   const [modalLeft, setModalLeft] = useState(false);
   const [modalRight, setModalRight] = useState(false);
+  const router = useRouter();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -199,9 +199,12 @@ const List = () => {
         sections={DataList}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item}</Text>
-          </View>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => Linking.openURL(item.link)}
+          >
+            <Text style={styles.title}>{item.name}</Text>
+          </TouchableOpacity>
         )}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={styles.header}>{title}</Text>
