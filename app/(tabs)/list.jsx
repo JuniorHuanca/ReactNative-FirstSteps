@@ -14,6 +14,8 @@ import {
 import ScreenHeaderBtn from "@/components/ScreenHeaderBtn";
 import { useState } from "react";
 import { DataList } from "@/utils/data";
+import Right from "@/components/Modals/Right";
+import Left from "@/components/Modals/Left";
 const List = () => {
   const [modalLeft, setModalLeft] = useState(false);
   const [modalRight, setModalRight] = useState(false);
@@ -42,155 +44,13 @@ const List = () => {
           headerTitle: "",
         }}
       />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalLeft}
-        onRequestClose={() => {
-          setModalLeft(!modalLeft);
-        }}
-      >
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <ScreenHeaderBtn
-              iconUrl={icons.close}
-              dimension="70%"
-              handlePress={() => setModalLeft(!modalLeft)}
-            />
-            <Text style={styles.welcomeMessage}>Menu</Text>
 
-            <ScreenHeaderBtn
-              iconUrl={images.profile}
-              dimension="100%"
-              handlePress={() => setModalRight(!modalRight)}
-            />
-          </View>
-          <View>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Inicio</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Configuración</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Perfil</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Notificaciones</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Ajustes</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Ayuda</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Cerrar sesión</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Guardar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Cancelar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Aceptar</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </Modal>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalRight}
-        onRequestClose={() => {
-          setModalRight(!modalRight);
-        }}
-      >
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-          <View
-            style={{
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <ScreenHeaderBtn
-              iconUrl={icons.close}
-              dimension="70%"
-              handlePress={() => setModalRight(!modalRight)}
-            />
-            <Text style={styles.welcomeMessage}>Cuenta</Text>
-            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
-          </View>
-          <View>
-            <TouchableOpacity style={styles.button}>
-              <Image
-                source={images.profile}
-                resizeMode="cover"
-                style={{ width: "100px", height: "100px", borderRadius: "50%" }}
-              />
-              <Text
-                style={{
-                  fontFamily: FONT.bold,
-                  fontSize: SIZES.xxLarge,
-                  color: COLORS.white,
-                }}
-              >
-                Perfil
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                style={{
-                  fontFamily: FONT.bold,
-                  fontSize: SIZES.large,
-                  color: COLORS.white,
-                }}
-              >
-                Notificaciones
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                style={{
-                  fontFamily: FONT.bold,
-                  fontSize: SIZES.large,
-                  color: COLORS.white,
-                }}
-              >
-                Ayuda
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                style={{
-                  fontFamily: FONT.bold,
-                  fontSize: SIZES.large,
-                  color: COLORS.white,
-                }}
-              >
-                Configuración de la cuenta
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text
-                style={{
-                  fontFamily: FONT.bold,
-                  fontSize: SIZES.large,
-                  color: COLORS.white,
-                }}
-              >
-                Cerrar sesión
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      </Modal>
+      <Right
+        setModalRight={setModalRight}
+        modalRight={modalRight}
+        styles={styles}
+      />
+      <Left setModalLeft={setModalLeft} modalLeft={modalLeft} styles={styles} />
       <View style={styles.container}>
         <Text style={styles.welcomeMessage}>My Tecnologies</Text>
       </View>
